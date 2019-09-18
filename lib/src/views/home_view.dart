@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qrreaderapp/src/providers/db_provider.dart';
 import 'package:qrreaderapp/src/views/directions_view.dart';
 import 'package:qrreaderapp/src/views/maps_view.dart';
 import 'package:qrcode_reader/qrcode_reader.dart';
@@ -44,21 +45,26 @@ class _HomeViewState extends State<HomeView> {
     //https://www.google.com
     //geo:3.443339467257526,-76.51357069453127
 
-    String futureString = '';
+    String futureString = 'https://www.google.com';
 
-    try{
-      futureString = await new QRCodeReader().scan();
-      _showAlert( context, futureString);
+    // try{
+    //   futureString = await new QRCodeReader().scan();
+    //   _showAlert( context, futureString);
 
-    }catch( e ){
-      futureString = e.toString();
+    // }catch( e ){
+    //   futureString = e.toString();
+    // }
+
+    if( futureString !=null ){
+
+      final scan = ScanModel( valor: futureString);
+      DBProvider.db.nuevoScan( scan );
+      
     }
 
-    print('futureString: $futureString');
-
-    if( futureString != null ){
-      print('Tiene informacion.');
-    }
+    // if( futureString != null ){
+    //   print('Tiene informacion.');
+    // }
     
   }
 
