@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:qrreaderapp/src/providers/db_provider.dart';
+import 'package:qrreaderapp/src/bloc/scans_bloc.dart';
+import 'package:qrreaderapp/src/models/scan_model.dart';
 import 'package:qrreaderapp/src/views/directions_view.dart';
 import 'package:qrreaderapp/src/views/maps_view.dart';
 import 'package:qrcode_reader/qrcode_reader.dart';
@@ -12,6 +13,8 @@ class HomeView extends StatefulWidget{
 
 class _HomeViewState extends State<HomeView> {
 
+  final scansBloc = new ScansBloc();
+
   int currentIndex = 0;
 
   @override
@@ -23,7 +26,7 @@ class _HomeViewState extends State<HomeView> {
         actions: <Widget>[
           IconButton(
             icon: Icon( Icons.delete_forever ),
-            onPressed: (){},
+            onPressed: scansBloc.deleteScans,
           )
         ],
       ),
@@ -58,7 +61,7 @@ class _HomeViewState extends State<HomeView> {
     if( futureString !=null ){
 
       final scan = ScanModel( valor: futureString);
-      DBProvider.db.nuevoScan( scan );
+      scansBloc.addScan( scan );
       
     }
 
