@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qrreaderapp/src/bloc/scans_bloc.dart';
 import 'package:qrreaderapp/src/models/scan_model.dart';
+import 'package:qrreaderapp/src/utils/utils.dart' as utils;
 
 class MapsView extends StatelessWidget {
 
@@ -34,6 +35,9 @@ class MapsView extends StatelessWidget {
                 title: Text(scans[ index ].valor),
                 subtitle: Text('ID: ${ scans[index].id }'),
                 trailing: Icon( Icons.keyboard_arrow_right, color: Colors.grey,),
+                onTap: (){
+                  utils.launchURL( context, scans[ index ] );
+                },
               ),
             );
           },

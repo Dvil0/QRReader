@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:qrreaderapp/src/bloc/scans_bloc.dart';
 import 'package:qrreaderapp/src/models/scan_model.dart';
+import 'package:qrreaderapp/src/utils/utils.dart';
 import 'package:qrreaderapp/src/views/directions_view.dart';
 import 'package:qrreaderapp/src/views/maps_view.dart';
 import 'package:qrcode_reader/qrcode_reader.dart';
@@ -62,6 +65,14 @@ class _HomeViewState extends State<HomeView> {
 
       final scan = ScanModel( valor: futureString);
       scansBloc.addScan( scan );
+
+      final scan2 = ScanModel( valor: 'geo:3.443339467257526,-76.51357069453127');
+      scansBloc.addScan( scan2 );
+
+      if( Platform.isIOS == true ){
+        Future.delayed( Duration(milliseconds: 750) );
+        launchURL( context, scan );
+      }
       
     }
 
